@@ -1,4 +1,6 @@
 package finalproject.util;
 
-public class Notification {
+public interface Notification {
+
+    public void sendMessage(String message);
 }
