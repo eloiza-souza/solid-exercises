@@ -1,6 +1,6 @@
 package dip.good;
 
-public class Teclado implements DispositivoEntrada{
+public class TecladoDIP implements DispositivoEntrada{
 
     @Override
     public void usar() {

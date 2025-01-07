@@ -6,4 +6,8 @@ public class Computador {
     public Computador() {
         this.teclado = new Teclado();
     }
+
+    public void escrever(){
+        teclado.digitar();
+    }
 }
