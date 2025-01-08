@@ -3,7 +3,7 @@ package finalproject.util;
 public class NumberAccountGenerator {
     private static int generateAccountNumber = 10000;
 
-    public static String getAccountNumber() {
+    public static String createAccountNumber() {
         return ++generateAccountNumber + "-" + generateCheckDigit();
     }
 

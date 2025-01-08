@@ -1,4 +1,4 @@
-package finalproject.model;
+package finalproject.model.account;
 
 import finalproject.util.NumberAccountGenerator;
 
@@ -7,14 +7,18 @@ public abstract class AccountBase implements Account {
     private AccountType type;
     private double balance;
     private final String accountNumber;
-
+    private final FeeCalculator feeCalculator;
+    private final NotificationService notificationService;
+    
     public AccountBase() {
         this.type = setType();
         this.balance = 0;
-        this.accountNumber = NumberAccountGenerator.getAccountNumber();
+        this.accountNumber = NumberAccountGenerator.createAccountNumber();
     }
 
     public abstract AccountType setType();
+
+
 
     @Override
     public double getBalance() {
@@ -32,13 +36,13 @@ public abstract class AccountBase implements Account {
     }
 
     @Override
-    public void withdrawal(double amount) {
+    public void withdraw(double amount) {
           this.balance -= amount;
     }
 
     @Override
     public void transfer(AccountBase targetAccount, double amount) {
-        this.withdrawal(amount);
+        this.withdraw(amount);
         targetAccount.deposit(amount);
     }
 
