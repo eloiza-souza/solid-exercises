@@ -1,6 +1,11 @@
 package finalproject.model;
 
-public class CheckingAccount extends Account{
+public class CheckingAccount extends AccountBase {
+
+     @Override
+    public AccountType setType() {
+        return AccountType.CHECKING;
+    }
 
     @Override
     public double interestRate() {
