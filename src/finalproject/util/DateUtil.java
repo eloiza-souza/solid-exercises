@@ -1,39 +1,19 @@
-package util;
+package finalproject.util;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class DateUtil {
-    public static final String DATE_FORMAT = "dd/MM/yyyy";
+    public static final String DATE_FORMAT = "dd/MM/yyyy HH:mm:ss";
 
-    public static boolean isValidDate(String dateInput) {
-        SimpleDateFormat sdf = createDateFormatter();
-        try {
-            sdf.parse(dateInput);
-            return true;
-        } catch (ParseException e) {
-            return false;
-        }
+    public static String getCurrentDate() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+        return dateFormatter.format(getNow());
     }
 
-    public static Date parseDate(String dateInput) {
-        SimpleDateFormat sdf = createDateFormatter();
-        try {
-            return sdf.parse(dateInput);
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("Formato inválido");
-        }
+    private static LocalDateTime getNow(){
+        return  LocalDateTime.now();
     }
 
-    public static String toString(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return sdf.format(date);
-    }
-
-    private static SimpleDateFormat createDateFormatter() {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT);
-        dateFormatter.setLenient(false);
-        return dateFormatter;
-    }
 }

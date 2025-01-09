@@ -6,6 +6,7 @@ import finalproject.model.client.Client;
 import finalproject.model.notification.Notification;
 import finalproject.service.AccountService;
 import finalproject.service.ClientService;
+import finalproject.util.DateUtil;
 
 import java.util.Optional;
 
@@ -98,6 +99,6 @@ public class BankManager {
         if (client.isEmpty()) {
             throw new IllegalArgumentException("Cliente não encontrado com CPF: " + cpf);
         }
-        client.get().getNotification().sendNotification(message);
+        client.get().getNotification().sendNotification(DateUtil.getCurrentDate() + " - " + message);
     }
 }
