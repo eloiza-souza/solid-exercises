@@ -1,21 +1,19 @@
-package finalproject.registry;
+package finalproject.creation;
 
 import finalproject.model.account.Account;
 import finalproject.model.account.AccountType;
 import finalproject.model.account.CheckingAccount;
 import finalproject.model.account.SavingAccount;
-import finalproject.model.fee.FeeCalculator;
-import finalproject.model.notification.Notification;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class BaseAccountRegistryImpl implements BaseAccountRegistry {
+public class BaseAccountCreatorImpl implements BaseAccountCreator {
     private final Map<AccountType, Supplier<Account>> accountSuppliers = new HashMap<>();
 
-    public BaseAccountRegistryImpl(FeeCalculator feeCalculator, Notification notification) {
-        accountSuppliers.put(AccountType.SAVING, SavingAccount::new(feeCalculator,notification));
+    public BaseAccountCreatorImpl() {
+        accountSuppliers.put(AccountType.SAVING, SavingAccount::new);
         accountSuppliers.put(AccountType.CHECKING, CheckingAccount::new);
     }
 
