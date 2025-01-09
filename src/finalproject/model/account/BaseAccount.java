@@ -1,24 +1,25 @@
 package finalproject.model.account;
 
+import finalproject.model.fee.RateInterest;
 import finalproject.util.NumberAccountGenerator;
 
-public abstract class AccountBase implements Account {
+public abstract class BaseAccount implements Account {
 
     private AccountType type;
     private double balance;
     private final String accountNumber;
-    private final FeeCalculator feeCalculator;
-    private final NotificationService notificationService;
-    
-    public AccountBase() {
-        this.type = setType();
+    private RateInterest rateInterest;
+
+    public BaseAccount() {
+        this.type = defineType();
         this.balance = 0;
         this.accountNumber = NumberAccountGenerator.createAccountNumber();
+        this.rateInterest = defineRateInterest();
     }
 
-    public abstract AccountType setType();
+    public abstract AccountType defineType();
 
-
+    public abstract RateInterest defineRateInterest();
 
     @Override
     public double getBalance() {
@@ -37,20 +38,19 @@ public abstract class AccountBase implements Account {
 
     @Override
     public void withdraw(double amount) {
-          this.balance -= amount;
+        this.balance -= amount;
     }
 
     @Override
-    public void transfer(AccountBase targetAccount, double amount) {
+    public void transfer(BaseAccount targetAccount, double amount) {
         this.withdraw(amount);
         targetAccount.deposit(amount);
     }
 
-    public abstract double interestRate();
-
-    public void  applyInterest(){
-        deposit(this.balance * interestRate());
+    public void applyInterest() {
+        double rateInterest = this.rateInterest.rateInterest();
+        if (rateInterest > 0) {
+            deposit(this.balance * rateInterest);
+        }
     }
-
-
 }
