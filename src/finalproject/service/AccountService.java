@@ -37,8 +37,9 @@ public class AccountService {
         }
         validateAmount(amount);
         account.withdraw(amount);
-        targetAccountService.deposit(amount);
-        notification.sendNotification("Transferência para a conta " + targetAccountService.getAccountNumber() + " no valor de " + amount);
+        targetAccountService.account.deposit(amount);
+        targetAccountService.notification.sendNotification("Transferência recebida da conta " + getAccountNumber() + " no valor de " + amount);
+        notification.sendNotification("Transferência enviada para a conta " + targetAccountService.getAccountNumber() + " no valor de " + amount);
     }
 
     public void applyRateInterest() {
