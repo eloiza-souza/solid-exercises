@@ -1,6 +1,5 @@
 package finalproject.model.account;
 
-import finalproject.model.fee.RateInterest;
 import finalproject.util.NumberAccountGenerator;
 
 public abstract class BaseAccount implements Account {
@@ -8,7 +7,7 @@ public abstract class BaseAccount implements Account {
     private AccountType type;
     private double balance;
     private final String accountNumber;
-    private RateInterest rateInterest;
+    private double rateInterest;
 
     public BaseAccount() {
         this.type = defineType();
@@ -19,7 +18,7 @@ public abstract class BaseAccount implements Account {
 
     public abstract AccountType defineType();
 
-    public abstract RateInterest defineRateInterest();
+    public abstract double defineRateInterest();
 
     @Override
     public double getBalance() {
@@ -32,7 +31,7 @@ public abstract class BaseAccount implements Account {
     }
 
     @Override
-    public String getAccountType(){
+    public String getAccountType() {
         return type.toString().toLowerCase();
     }
 
@@ -53,9 +52,6 @@ public abstract class BaseAccount implements Account {
     }
 
     public void applyInterest() {
-        double rateInterest = this.rateInterest.rateInterest();
-        if (rateInterest > 0) {
-            deposit(this.balance * rateInterest);
-        }
+        balance += this.balance * this.rateInterest;
     }
 }

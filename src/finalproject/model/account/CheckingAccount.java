@@ -1,8 +1,5 @@
 package finalproject.model.account;
 
-import finalproject.model.fee.CheckingAccountRateInterest;
-import finalproject.model.fee.RateInterest;
-
 public class CheckingAccount extends BaseAccount {
 
     @Override
@@ -11,8 +8,8 @@ public class CheckingAccount extends BaseAccount {
     }
 
     @Override
-    public RateInterest defineRateInterest() {
-        return new CheckingAccountRateInterest();
+    public double defineRateInterest() {
+        return 0;
     }
 
 }
