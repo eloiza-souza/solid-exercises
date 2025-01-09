@@ -1,9 +1,9 @@
 package finalproject.model.fee;
 
-public class CheckingAccountFeeCalculator implements FeeCalculator {
+public class CheckingAccountRateInterest implements RateInterest {
     @Override
-    public double calculateFee(double amount) {
-        return amount * 0.01;
+    public double rateInterest() {
+        return 0.01;
     }
 }
 

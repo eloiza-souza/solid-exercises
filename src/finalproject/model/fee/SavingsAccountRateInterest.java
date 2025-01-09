@@ -1,8 +1,8 @@
 package finalproject.model.fee;
 
-public class SavingsAccountFeeCalculator implements FeeCalculator {
+public class SavingsAccountRateInterest implements RateInterest {
     @Override
-    public double calculateFee(double amount) {
-        return 0.0; // Sem taxa
+    public double rateInterest() {
+        return 0.0;
     }
 }
