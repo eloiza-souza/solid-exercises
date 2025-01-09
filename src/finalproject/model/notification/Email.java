@@ -1,4 +1,4 @@
-package finalproject.util;
+package finalproject.model.notification;
 
 public class Email implements Notification{
 
