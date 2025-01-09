@@ -1,14 +1,18 @@
-package finalproject.model;
+package finalproject.model.account;
 
-public class CheckingAccount extends AccountBase {
+import finalproject.model.fee.CheckingAccountRateInterest;
+import finalproject.model.fee.RateInterest;
 
-     @Override
-    public AccountType setType() {
+public class CheckingAccount extends BaseAccount {
+
+    @Override
+    public AccountType defineType() {
         return AccountType.CHECKING;
     }
 
     @Override
-    public double interestRate() {
-        return 0;
+    public RateInterest defineRateInterest() {
+        return new CheckingAccountRateInterest();
     }
+
 }
