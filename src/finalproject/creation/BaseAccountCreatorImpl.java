@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class BaseAccountCreatorImpl implements BaseAccountCreator {
+
     private final Map<AccountType, Supplier<Account>> accountSuppliers = new HashMap<>();
 
     public BaseAccountCreatorImpl() {

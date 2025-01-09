@@ -1,6 +1,9 @@
 package finalproject.service;
 
+import finalproject.creation.BaseAccountCreator;
+import finalproject.creation.BaseAccountCreatorImpl;
 import finalproject.model.account.Account;
+import finalproject.model.account.AccountType;
 import finalproject.model.client.Client;
 import finalproject.model.notification.Notification;
 import finalproject.util.CpfValidator;
@@ -20,10 +23,9 @@ public class ClientService {
     public void addClient(String cpf, String name, String email, String cellPhoneNumber, Notification notification) {
         validateCpf(cpf);
         validateEmail(email);
-
         Client client = new Client(cpf, name, email, cellPhoneNumber, notification);
-
         clients.add(client);
+        System.out.println("Cliente adicionado com sucesso!");
     }
 
     private void validateEmail(String email) {
@@ -34,9 +36,10 @@ public class ClientService {
         CpfValidator.validateCpf(cpf);
     }
 
-    public void addAccountToClient(String cpf, Account account) {
+    public void addAccountToClient(String cpf, AccountType accountType) {
         Client client = findClientByCpf(cpf)
                 .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado."));
+        Account account = new BaseAccountCreatorImpl().createAccount(accountType);
         client.addAccount(account);
     }
 

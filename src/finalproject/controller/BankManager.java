@@ -1,6 +1,7 @@
 package finalproject.controller;
 
 import finalproject.model.account.Account;
+import finalproject.model.account.AccountType;
 import finalproject.model.client.Client;
 import finalproject.model.notification.Notification;
 import finalproject.service.AccountService;
@@ -18,27 +19,28 @@ public class BankManager {
     }
 
     public void addClient(String cpf, String name, String email, String cellPhoneNumber, Notification notification) {
-        bankManager.addClient(cpf, name, email,cellPhoneNumber,notification);
+        bankManager.addClient(cpf, name, email, cellPhoneNumber, notification);
     }
 
-    public void addAccount(String cpf, Account account) {
-        Optional<Client> clientOptional = findClient(cpf);
-        clientOptional.ifPresent(client -> client.addAccount(account));
-
+    public void addAccountToClient(String cpf, AccountType type) {
+        bankManager.addAccountToClient(cpf, type);
     }
 
     public void deposit(String cpf, String accountNumber, double amount) {
         Optional<Account> account = findAccountClient(cpf, accountNumber);
-        if (account.isPresent())
+        if (account.isPresent()) {
             accountService.deposit(account.get(), amount);
-        else
+            sendNotificationToClient(cpf, "Depósito realizado. Valor R$ " + amount);
+        } else
             notFoundAccount(accountNumber);
     }
 
     public void withdraw(String cpf, String accountNumber, double amount) {
         Optional<Account> account = findAccountClient(cpf, accountNumber);
-        if (account.isPresent())
+        if (account.isPresent()) {
             accountService.withdraw(account.get(), amount);
+            sendNotificationToClient(cpf, "Saque realizado. Valor R$ " + amount);
+        }
         else
             notFoundAccount(accountNumber);
     }
@@ -76,4 +78,11 @@ public class BankManager {
         throw new IllegalArgumentException("Conta número " + accountNumber + "não encontrada.");
     }
 
+    private void sendNotificationToClient(String cpf, String message) {
+        Optional<Client> client = findClient(cpf);
+        if (client.isEmpty()) {
+            throw new IllegalArgumentException("Cliente não encontrado com CPF: " + cpf);
+        }
+        client.get().getNotification().sendNotification(message);
+    }
 }
