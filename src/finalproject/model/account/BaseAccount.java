@@ -32,6 +32,11 @@ public abstract class BaseAccount implements Account {
     }
 
     @Override
+    public String getAccountType(){
+        return type.toString().toLowerCase();
+    }
+
+    @Override
     public void deposit(double amount) {
         this.balance += amount;
     }
