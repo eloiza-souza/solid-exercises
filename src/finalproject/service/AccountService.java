@@ -31,14 +31,14 @@ public class AccountService {
         notification.sendNotification("Saque realizado no valor: " + amount);
     }
 
-    public void transfer(Account targetAccount, double amount) {
-        if (targetAccount == null) {
+    public void transfer(AccountService targetAccountService, double amount) {
+        if (targetAccountService == null) {
             throw new IllegalArgumentException("Conta de destino inválida.");
         }
         validateAmount(amount);
         account.withdraw(amount);
-        targetAccount.deposit(amount);
-        notification.sendNotification("Transferência para a conta " + targetAccount.getAccountNumber() + " no valor de " + amount);
+        targetAccountService.deposit(amount);
+        notification.sendNotification("Transferência para a conta " + targetAccountService.getAccountNumber() + " no valor de " + amount);
     }
 
     public void applyRateInterest() {
