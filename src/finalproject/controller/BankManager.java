@@ -1,42 +1,79 @@
 package finalproject.controller;
 
 import finalproject.model.account.Account;
-import finalproject.model.account.AccountType;
 import finalproject.model.client.Client;
+import finalproject.model.notification.Notification;
+import finalproject.service.AccountService;
 import finalproject.service.ClientService;
-import finalproject.util.CpfValidator;
 
-import java.util.List;
+import java.util.Optional;
 
-public class BankController {
-    List<ClientService> bank;
+public class BankManager {
+    ClientService bankManager;
+    AccountService accountService;
 
-    public BankController(List<ClientService> bank) {
-        this.bank = bank;
+    public BankManager(ClientService clients, AccountService accountService) {
+        this.bankManager = clients;
+        this.accountService = accountService;
     }
 
-    public void addClient(Client client) {
-        bank.add(new ClientService(client));
+    public void addClient(String cpf, String name, String email, String cellPhoneNumber, Notification notification) {
+        bankManager.addClient(cpf, name, email,cellPhoneNumber,notification);
     }
 
     public void addAccount(String cpf, Account account) {
-        findClientByCpf(cpf).addAccount(account);
+        Optional<Client> clientOptional = findClient(cpf);
+        clientOptional.ifPresent(client -> client.addAccount(account));
+
     }
 
     public void deposit(String cpf, String accountNumber, double amount) {
-        findClientByCpf(cpf).findAccount()
+        Optional<Account> account = findAccountClient(cpf, accountNumber);
+        if (account.isPresent())
+            accountService.deposit(account.get(), amount);
+        else
+            notFoundAccount(accountNumber);
     }
 
-    private ClientService findClientByCpf(String cpf) {
-        CpfValidator.validateCpf(cpf);
-        return bank.stream()
-                .filter(client -> client.getClientCpf().equals(cpf))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado."));
+    public void withdraw(String cpf, String accountNumber, double amount) {
+        Optional<Account> account = findAccountClient(cpf, accountNumber);
+        if (account.isPresent())
+            accountService.withdraw(account.get(), amount);
+        else
+            notFoundAccount(accountNumber);
     }
 
-    private Account findAccountByType(Client client, AccountType type) {
-        return bank.stream()
-                .filter()
+    public void transfer(String sourceCpf, String sourceAccountNumber, String targetCpf, String targetAccountNumber, double amount) {
+        Optional<Account> sourceAccount = findAccountClient(sourceCpf, sourceAccountNumber);
+        Optional<Account> targetAccount = findAccountClient(targetCpf, targetAccountNumber);
+        if (sourceAccount.isPresent() && targetAccount.isPresent())
+            accountService.transfer(sourceAccount.get(), targetAccount.get(), amount);
+        else
+            throw new IllegalArgumentException("Verifique o número das contas");
     }
+
+    public void applyRateInterest(String cpf, String accountNumber) {
+        Optional<Account> account = findAccountClient(cpf, accountNumber);
+        if (account.isPresent())
+            accountService.applyRateInterest(account.get());
+        else
+            notFoundAccount(accountNumber);
+    }
+
+    private Optional<Client> findClient(String cpf) {
+        return bankManager.findClientByCpf(cpf);
+    }
+
+    private Optional<Account> findAccountClient(String cpf, String accountNumber) {
+        Optional<Client> client = findClient(cpf);
+        if (client.isEmpty()) {
+            throw new IllegalArgumentException("Cliente não encontrado com CPF: " + cpf);
+        }
+        return bankManager.findAccountByNumber(client.get(), accountNumber);
+    }
+
+    private void notFoundAccount(String accountNumber) {
+        throw new IllegalArgumentException("Conta número " + accountNumber + "não encontrada.");
+    }
+
 }
