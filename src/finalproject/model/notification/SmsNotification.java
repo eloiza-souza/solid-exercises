@@ -1,8 +1,8 @@
 package finalproject.model.notification;
 
-public class Sms implements Notification {
+public class SmsNotification implements Notification {
     @Override
-    public void sendMessage(String message) {
+    public void sendNotification(String message) {
         System.out.println("Enviando SMS: " + message);
     }
 }

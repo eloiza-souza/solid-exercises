@@ -1,10 +1,10 @@
 package finalproject.model.notification;
 
-public class Email implements Notification{
+public class EmailNotification implements Notification{
 
 
     @Override
-    public void sendMessage(String message) {
+    public void sendNotification(String message) {
         System.out.println("Enviando email: " + message);
     }
 }

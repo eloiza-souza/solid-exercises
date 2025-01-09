@@ -19,7 +19,7 @@ public class AccountService {
     public void deposit(double amount) {
         validateAmount(amount);
         account.deposit(amount);
-        notification.sendMessage("Depósito efetuado no valor: " + amount);
+        notification.sendNotification("Depósito efetuado no valor: " + amount);
     }
 
     public void withdraw(double amount) {
@@ -28,7 +28,7 @@ public class AccountService {
             throw new IllegalArgumentException("Saldo insuficiente.");
         }
         account.withdraw(amount);
-        notification.sendMessage("Saque realizado no valor: " + amount);
+        notification.sendNotification("Saque realizado no valor: " + amount);
     }
 
     public void transfer(Account targetAccount, double amount) {
@@ -38,12 +38,12 @@ public class AccountService {
         validateAmount(amount);
         account.withdraw(amount);
         targetAccount.deposit(amount);
-        notification.sendMessage("Transferência para a conta " + targetAccount.getAccountNumber() + " no valor de " + amount);
+        notification.sendNotification("Transferência para a conta " + targetAccount.getAccountNumber() + " no valor de " + amount);
     }
 
     public void applyRateInterest() {
         account.applyInterest();
-        notification.sendMessage("Rendimento aplicado com sucesso.");
+        notification.sendNotification("Rendimento aplicado com sucesso.");
     }
 
     private void validateAmount(double amount) {
