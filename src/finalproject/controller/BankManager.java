@@ -26,6 +26,16 @@ public class BankManager {
         bankManager.addAccountToClient(cpf, type);
     }
 
+    public void getBalance(String cpf, String accountNumber ){
+        Optional<Account> account = findAccountClient(cpf, accountNumber);
+        if (account.isPresent()) {
+            double balance = accountService.getBalance(account.get());
+            sendNotificationToClient(cpf,"Seu saldo em conta é de R$ " + balance);
+        }
+        else
+            notFoundAccount(accountNumber);
+    }
+
     public void deposit(String cpf, String accountNumber, double amount) {
         Optional<Account> account = findAccountClient(cpf, accountNumber);
         if (account.isPresent()) {
@@ -48,16 +58,21 @@ public class BankManager {
     public void transfer(String sourceCpf, String sourceAccountNumber, String targetCpf, String targetAccountNumber, double amount) {
         Optional<Account> sourceAccount = findAccountClient(sourceCpf, sourceAccountNumber);
         Optional<Account> targetAccount = findAccountClient(targetCpf, targetAccountNumber);
-        if (sourceAccount.isPresent() && targetAccount.isPresent())
+        if (sourceAccount.isPresent() && targetAccount.isPresent()) {
             accountService.transfer(sourceAccount.get(), targetAccount.get(), amount);
+            sendNotificationToClient(sourceCpf, "Transferência realizada para o destino: " + targetAccount.get().getAccountNumber()+ ". Valor R$ " + amount);
+            sendNotificationToClient(targetCpf, "Transferência recebida da conta " + sourceAccount.get().getAccountNumber() + ". Valor R$ " + amount);
+        }
         else
             throw new IllegalArgumentException("Verifique o número das contas");
     }
 
     public void applyRateInterest(String cpf, String accountNumber) {
         Optional<Account> account = findAccountClient(cpf, accountNumber);
-        if (account.isPresent())
+        if (account.isPresent()) {
             accountService.applyRateInterest(account.get());
+            sendNotificationToClient(cpf,"Sua conta recebeu rendimentos");
+        }
         else
             notFoundAccount(accountNumber);
     }

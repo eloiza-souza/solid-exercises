@@ -20,6 +20,7 @@ public class Client {
         this.email = email;
         this.cellPhoneNumber = cellPhoneNumber;
         this.accounts = new ArrayList<>();
+        this.notification = notification;
     }
 
     public String getCpf() {

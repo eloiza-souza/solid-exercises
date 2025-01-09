@@ -25,7 +25,7 @@ public class ClientService {
         validateEmail(email);
         Client client = new Client(cpf, name, email, cellPhoneNumber, notification);
         clients.add(client);
-        System.out.println("Cliente adicionado com sucesso!");
+        System.out.println("Cliente "+ client.getName() + " adicionado com sucesso!");
     }
 
     private void validateEmail(String email) {
@@ -41,6 +41,7 @@ public class ClientService {
                 .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado."));
         Account account = new BaseAccountCreatorImpl().createAccount(accountType);
         client.addAccount(account);
+        System.out.println("Conta criada. Número: " + account.getAccountNumber());
     }
 
     public Optional<Client> findClientByCpf(String cpf) {
