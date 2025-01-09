@@ -1,14 +1,18 @@
-package finalproject.model;
+package finalproject.model.account;
 
-public class SavingAccount extends AccountBase {
+import finalproject.model.fee.RateInterest;
+import finalproject.model.fee.SavingsAccountRateInterest;
+
+public class SavingAccount extends BaseAccount {
 
     @Override
-    public AccountType setType() {
+    public AccountType defineType() {
         return AccountType.SAVING;
     }
 
     @Override
-    public double interestRate() {
-        return 0.01;
+    public RateInterest defineRateInterest() {
+        return new SavingsAccountRateInterest();
     }
+
 }
