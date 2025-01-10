@@ -65,7 +65,7 @@ class NumberAccountGeneratorTest {
         assertEquals(recalculatedCheckDigit, checkDigit, "O dígito verificador gerado deve ser válido.");
     }
 
-    // Método auxiliar para recalcular o dígito verificador
+
     private int calculateCheckDigit(int accountNumber) {
         int sum = 0;
         int weight = 2;
