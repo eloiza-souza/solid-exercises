@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectStateService">
+    <option name="data">
+      <map>
+        <entry key="eloiza.souza@zup.com.br">
+          <value>
+            <ProjectStateData>
+              <option name="conversationId" value="01JH82YXXVMDZ28PV2WPT8DTTD" />
+              <option name="indexedFiles">
+                <map>
+                  <entry key="$PROJECT_DIR$/src/finalproject/model/account/Account.java" value="21901" />
+                  <entry key="$PROJECT_DIR$/src/finalproject/test/CpfValidatorTest.java" value="3279" />
+                  <entry key="$PROJECT_DIR$/src/finalproject/util/NumberAccountGenerator.java" value="37543" />
+                  <entry key="$PROJECT_DIR$/test/finalproject/ClientServiceTest.java" value="39323" />
+                  <entry key="$PROJECT_DIR$/test/finalproject/DateUtilTest.java" value="39584" />
+                  <entry key="$PROJECT_DIR$/test/finalproject/EmailValidatorTest.java" value="36507" />
+                  <entry key="$PROJECT_DIR$/test/finalproject/NumberAccountGeneratorTest.java" value="38419" />
+                </map>
+              </option>
+              <option name="projectId" value="01JH6H584E686VK5XVEB4XYXG1" />
+            </ProjectStateData>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
