@@ -31,5 +31,4 @@ public class NumberAccountGenerator {
             return 11 - remainder;
         }
     }
-
 }
