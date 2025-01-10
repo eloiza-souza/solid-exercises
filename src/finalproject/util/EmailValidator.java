@@ -23,7 +23,8 @@ public class EmailValidator {
         }
 
         int dotIndex = domainPart.indexOf('.');
-        if (dotIndex == -1 || dotIndex == 0 || dotIndex == domainPart.length() - 1) {
+        int lastDotIndex = domainPart.lastIndexOf('.');
+        if (dotIndex == -1 || dotIndex == 0 || lastDotIndex == domainPart.length() - 1) {
             throw new IllegalArgumentException("O domínio deve conter pelo menos um ponto e não pode começar ou terminar com ele.");
         }
 
