@@ -33,9 +33,7 @@ class AccountServiceTest {
         Account account = new CheckingAccount();
         account.deposit(100.0);
         AccountService accountService = new AccountService();
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            accountService.deposit(account, -50.0);
-        });
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> accountService.deposit(account, -50.0));
         assertEquals("O valor deve ser maior que zero.", exception.getMessage());
     }
 
@@ -53,16 +51,12 @@ class AccountServiceTest {
         Account account = new CheckingAccount();
         account.deposit(100.0);
         AccountService accountService = new AccountService();
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            accountService.withdraw(account, 150.0);
-        });
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> accountService.withdraw(account, 150.0));
         assertEquals("Saldo insuficiente.", exception.getMessage());
     }
 
     @Test
     void testTransfer() {
-        Account account = new CheckingAccount();
-
         Account sourceAccount = new CheckingAccount();
         sourceAccount.deposit(200.0);
         Account targetAccount = new SavingAccount();
@@ -78,9 +72,7 @@ class AccountServiceTest {
         Account targetAccount = new SavingAccount();
         targetAccount.deposit(100.0);
         AccountService accountService = new AccountService();
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            accountService.transfer(null, targetAccount, 50.0);
-        });
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> accountService.transfer(null, targetAccount, 50.0));
         assertEquals("Conta inválida.", exception.getMessage());
     }
 
@@ -89,9 +81,7 @@ class AccountServiceTest {
         Account sourceAccount = new CheckingAccount();
         sourceAccount.deposit(200.0);
         AccountService accountService = new AccountService();
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            accountService.transfer(sourceAccount, null, 50.0);
-        });
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> accountService.transfer(sourceAccount, null, 50.0));
         assertEquals("Conta inválida.", exception.getMessage());
     }
 
