@@ -1,7 +1,9 @@
 package finalproject.main;
 
 import finalproject.controller.BankManager;
+import finalproject.factory.BaseAccountFactoryImpl;
 import finalproject.model.account.AccountType;
+import finalproject.model.account.BaseAccount;
 import finalproject.model.notification.EmailNotification;
 import finalproject.model.notification.Notification;
 import finalproject.model.notification.SmsNotification;
@@ -31,5 +33,21 @@ public class Main {
         novoBanco.getBalance("73512293093", "10001-3");
         novoBanco.applyRateInterest("73512293093", "10001-3");
         novoBanco.getBalance("73512293093", "10001-3");
+
+        BaseAccountFactoryImpl.register(AccountType.INVESTMENT, () -> new BaseAccount(){
+
+            @Override
+            public AccountType defineType() {
+                return AccountType.INVESTMENT;
+            }
+
+            @Override
+            public double defineRateInterest() {
+                return 0.02;
+            }
+        });
+
+        novoBanco.addAccountToClient("73512293093", AccountType.INVESTMENT);
+
     }
 }
