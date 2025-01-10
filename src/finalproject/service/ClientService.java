@@ -1,7 +1,6 @@
 package finalproject.service;
 
-import finalproject.creation.BaseAccountCreator;
-import finalproject.creation.BaseAccountCreatorImpl;
+import finalproject.factory.BaseAccountFactoryImpl;
 import finalproject.model.account.Account;
 import finalproject.model.account.AccountType;
 import finalproject.model.client.Client;
@@ -39,7 +38,7 @@ public class ClientService {
     public void addAccountToClient(String cpf, AccountType accountType) {
         Client client = findClientByCpf(cpf)
                 .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado."));
-        Account account = new BaseAccountCreatorImpl().createAccount(accountType);
+        Account account = new BaseAccountFactoryImpl().createAccount(accountType);
         client.addAccount(account);
         System.out.println("Conta criada. Número: " + account.getAccountNumber());
     }
